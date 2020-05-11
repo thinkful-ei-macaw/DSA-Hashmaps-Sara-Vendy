@@ -89,15 +89,26 @@ function isPalindrome(str) {
 }
 
 function anagram(arr) {
+//set up an empty hash
+  let hash = {}
 
+  //split each word into letters and push each set of letters to an array
+  arr.forEach(word => {
+    let letters = word.split('').sort()
 
-  for(let i=0; i<str.length; i++){
-    let currentLetter = str.substring(i, i+1); 
-    let previousLetters = str.substring(0,i);
-    let afterLetters = str.substring(i+1);
-    anagrams(prefix+currentLetter, previousLetters+afterLetters);
-}
+    //if the hash object already has a key containing those letters, add the word as a value of that key;
+    //otherwise, add a key containing those letters to the object with the word as the value
+    hash[letters] ? hash[letters].push(word) : hash[letters] = [word]
+  })
+//get keys
+  const keys = Object.keys(hash);
+  //put keys into an array to get values
+  const values = keys.map(v => {
+    return hash[v]
+  })
 
+  console.log(values)
+  return values
 }
 
 //input: ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'] 
